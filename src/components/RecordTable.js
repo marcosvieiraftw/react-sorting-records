@@ -7,39 +7,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+/**
+ * The component responsible to build the table with its data.
+ */
 class RecordTable extends Component {
-    constructor() {
-        super();
-        this.people = [
-            {
-                name: "Veronica Mize",
-                dob: "11/29/2011"
-            }, {
-                name: "Cecilia Olsson",
-                dob: "09/16/1992"
-            }, {
-                name: "Peter Parker",
-                dob: "01/16/1992"
-            }, {
-                name: "Jimmy Shergil",
-                dob: "12/12/2001"
-            }, {
-                name: "Alexander Alfred",
-                dob: "02/09/1891"
-            }, {
-                name: "Janice Shroyer",
-                dob: "12/01/1982"
-            }, {
-                name: "Ralph White",
-                dob: "11/30/2011"
-            }, {
-                name: "Deborah T. Decker",
-                dob: "10/31/1999"
-            }
-        ];
-    }
-
-    render() {
+    render () {
         return (
             <Paper className="width">
                 <Table>
@@ -50,15 +22,33 @@ class RecordTable extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                                <TableRow>
-                                    <TableCell>Insert Name</TableCell>
-                                    <TableCell>Insert DOB</TableCell>
+                        {this.props.data.map((prop, index) => {
+                            return (
+                                <TableRow key={index}>
+                                    <TableCell>{prop.name}</TableCell>
+                                    <TableCell>{prop.dob}</TableCell>
                                 </TableRow>
+                            )
+                        })}
                     </TableBody>
                 </Table>
             </Paper>
-        );
+        )
     }
 }
+
+RecordTable.propTypes = {
+    /**
+     * Expect the array of values to be iterated on the table.
+     * @format Array of objects [{
+     *   name: 'Lorem',
+     *   dob: '02/09/1891'
+     * }]
+     */
+    data: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        dob: PropTypes.string.isRequired
+    })).isRequired
+};
 
 export default RecordTable;
